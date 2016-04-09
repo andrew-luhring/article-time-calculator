@@ -177,4 +177,4 @@ console.log( rg.guessBasedOnWordCount(404) );
 
 
 ###### Superflous Rant.
-\* You may be thinking "BUT WHAT ABOUT ADVERTISING REVENUE". Don't be that dude. Call me crazy but your whether or not your users enjoy your content should take precidence over whether or not you'll be able to display another add banner (and make that whopping $0.0000002 for displaying that brilliant flash ad).
+\* You may be thinking "BUT WHAT ABOUT ADVERTISING REVENUE". Don't be that dude. Call me crazy but whether or not your users enjoy your content should take precidence over whether or not you'll be able to display another banner ad (that'll make you that whopping $0.0000002).
