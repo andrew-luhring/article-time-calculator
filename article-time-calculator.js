@@ -64,11 +64,16 @@
       , seconds = (isNaN(secondsAsPercentOfMinute)) ? 0 : Math.round(secondsAsPercentOfMinute * 60)
       , minuteWord = this.pluralizeInterceptor(this.nameForMinute, minutes)
       , secondWord = this.pluralizeInterceptor(this.nameForSecond, seconds);
+      
+      if(timeInMinutes < 1){
+        minutes = 0;
+        seconds = timeInMinutes * 60;
+      }
 
       return this.formatResultInterceptor(minutes, minuteWord, seconds, secondWord);
     }
 
-    getLengthBasedOnWordCount(num){
+    guessBasedOnWordCount(num){
       setTimeProperties.call(this, num);
       return this.formattedTime;
     }
@@ -84,18 +89,18 @@
     constructor(configObj){
       super(configObj);
     }
-    getLengthBasedOnSelector(selector){
+    guessTimeToReadSelector(selector){
       let elem = document.querySelector(selector);
       if(!elem){
         throw new Error('there was no element with the selector: ' + selector);
       }
       let text = elem.textContent.split(' ');
-      return this.getLengthBasedOnWordCount(text.length);
+      return this.guessBasedOnWordCount(text.length);
     }
 
-    getLengthBasedOnElement(elem){
+    guessTimeToReadElement(elem){
       let text = elem.textContent.split(' ');
-      return this.getLengthBasedOnWordCount(text.length);
+      return this.guessBasedOnWordCount(text.length);
     }
   }
 
@@ -160,6 +165,6 @@
   }
   else {
     // Export to the global object.
-    root.ArticleReader = freeWindow ? DOMArticleReader : WordReader;
+    root.ReadingGuesstimator = freeWindow ? DOMArticleReader : WordReader;
   }
 })();
