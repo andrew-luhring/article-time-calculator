@@ -38,11 +38,16 @@
       return this.formattedTime;
     }
 
-    getLengthBasedOnElement(selector){
+    getLengthBasedOnSelector(selector){
       let elem = getElement(selector);
       if(!elem){
         throw new Error('there was no element with the selector: ' + selector);
       }
+      let text = elem.textContent.split(' ');
+      return this.getLengthBasedOnWordCount(text.length);
+    }
+
+    getLengthBasedOnElement(elem){
       let text = elem.textContent.split(' ');
       return this.getLengthBasedOnWordCount(text.length);
     }
