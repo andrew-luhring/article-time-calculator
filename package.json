@@ -1,0 +1,23 @@
+{
+  "name": "article-time-calculator",
+  "version": "1.0.0",
+  "description": "\"Calculates how long it will take you to read an article.\"",
+  "main": "article-time-calculator.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrew-luhring/article-time-calculator.git"
+  },
+  "keywords": [
+    "read",
+    "article"
+  ],
+  "author": "Andrew Luhring",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrew-luhring/article-time-calculator/issues"
+  },
+  "homepage": "https://github.com/andrew-luhring/article-time-calculator#readme"
+}
