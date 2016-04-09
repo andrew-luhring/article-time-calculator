@@ -64,10 +64,10 @@
       , seconds = (isNaN(secondsAsPercentOfMinute)) ? 0 : Math.round(secondsAsPercentOfMinute * 60)
       , minuteWord = this.pluralizeInterceptor(this.nameForMinute, minutes)
       , secondWord = this.pluralizeInterceptor(this.nameForSecond, seconds);
-      
+
       if(timeInMinutes < 1){
         minutes = 0;
-        seconds = timeInMinutes * 60;
+        seconds = Math.round(timeInMinutes * 60);
       }
 
       return this.formatResultInterceptor(minutes, minuteWord, seconds, secondWord);
