@@ -39,12 +39,16 @@ rg.guessBasedOnWordCount(numberOfWords);
 
 ## In a browser
 You get not one, but TWO- you read that right- 2 WHOLE other methods for working with DOM elements:
+
 1. guessTimeToReadSelector
 2. guessTimeToReadElement
 
-"But. but. how will I know which to use?"
+###### "But. but. how will I know which to use?"
+
 Psh.
+
 Easily.
+
 If you can grab a single element with a selector, use guessTimeToReadSelector, passing it a valid selector
 
 ```html
@@ -58,7 +62,7 @@ rg.guessTimeToReadSelector('#stuff');
 // returns 0 minutes 2 seconds.
 ```
 
-If you already have the DOM node you want, use guessTimeToReadElement:
+or if you already have the DOM node you want, use guessTimeToReadElement:
 ```html
 <article>
 	<p>Hey dude.</p>
@@ -84,22 +88,31 @@ for(var i = 0; i < articles.length; i++){
 
 ### Configurable options (all are optional)
 
+This noise accepts a configuration object with the following properties:
+
 ##### wordsPerMinute
 How many words your users can read in a minute.
 Defaults to 200 because [reasons](https://www.google.com/search?num=100&q=average+reading+speed).
+
 
 ##### nameForMinute
 The word you want to use to represent a minute.
 Defaults to "minute".
 
+
 ##### nameForSecond
 See above but mentally replace "minute" with "second".
+
 
 ##### pluralizeInterceptor
 A function that accepts 2 arguments: nameForMinute, and the number of minutes.
 
+
 ##### formatResultInterceptor
 A function that accepts 4 arguments: numberOfMinutes, nameForMinute, numberOfSeconds, and nameForSeconds.
+
+
+
 
 
 # Example
@@ -115,6 +128,8 @@ console.log( rg.guessBasedOnWordCount(600) );
 // logs: 1 minuto 30 segundos
 
 //
+//
+//
 // adjust pluralization rules:
 rg = new ReadingGuesstimator({
 	pluralizationInterceptor: function(word, amount){
@@ -126,29 +141,32 @@ console.log( rg.guessBasedOnWordCount(402) );
 // logs: 2 minutez 1 second
 
 //
-// adjust formatting of output:
+//
+//
+//  adjust formatting of output:
 rg = new ReadingGuesstimator({
 	formatResultInterceptor: function(minutes, nameForMinutes, seconds, nameForSeconds ){
-		return 'roughly ' + minutes + ' ' + nameForMinutes + ' and ' + seconds + ' ' + nameForSeconds +
-		" if you read at an average speed." ;
+		return 'roughly ' + minutes + ' ' + nameForMinutes + ' and ' + seconds + ' ' + nameForSeconds + " if you read at an average speed." ;
 	}
 });
 
 console.log( rg.guessBasedOnWordCount(402) );
 // logs: roughly 2 minutes and 1 second if you read at an average speed.
 
-
+//
+//
+//
 // Holy mother of examples:
 var rg = new ReadingGuesstimator({
-	wordsPerMinute : 400 // because fast readers.
-,	nameForMinute : 'm'
-,	nameForSecond : 's'
+  wordsPerMinute : 400 // because fast readers.
+, nameForMinute : 'm'
+, nameForSecond : 's'
 , pluralizationInterceptor: function(word){
-  	return word;
-	}
-,	formatResultInterceptor: function(min, nameM, sec, nameS){
-		return "You wasted: " + min + nameM + " and " + sec + nameS + " of your life reading this crap."
-	}
+    return word;
+  }
+, formatResultInterceptor: function(min, nameM, sec, nameS){
+    return "You wasted: " + min + nameM + " and " + sec + nameS + " of your life reading this crap."
+  }
 });
 
 console.log( rg.guessBasedOnWordCount(404) );
