@@ -2,8 +2,8 @@
 
 ## Have you ever wondered "How long would it probably take me to read this thing"?
 
-I have. Unfortunately by the time I normally am asking that question, I've already read a decent amount and have
-become somewhat invested in whatever the thing is.
+I have.
+Unfortunately by the time I normally am asking that question, I've already read a decent amount and have become somewhat invested in whatever the thing is.
 
 That's a bummer.
 
@@ -22,11 +22,11 @@ AMD/CommonJS modules.
 (will be available on bower and npm after I finish testing the environment stuff).
 
 
-# Useage
+# Usage
 
 ## Anywhere:
 
-##### Default Useage
+##### Default Usage
 ```js
 var rg = new ReadingGuesstimator();
 var numberOfWords = 600;
@@ -104,14 +104,15 @@ Defaults to "minute".
 See above but mentally replace "minute" with "second".
 
 
-##### pluralizeInterceptor
+##### pluralizationInterceptor
 A function that accepts 2 arguments: nameForMinute, and the number of minutes.
 
 
 ##### formatResultInterceptor
 A function that accepts 4 arguments: numberOfMinutes, nameForMinute, numberOfSeconds, and nameForSeconds.
 
-
+##### debug
+Log stuff in console if there's a problem. Off by default.
 
 
 
@@ -177,4 +178,4 @@ console.log( rg.guessBasedOnWordCount(404) );
 
 
 ###### Superflous Rant.
-\* You may be thinking "BUT WHAT ABOUT ADVERTISING REVENUE". Don't be that dude. Call me crazy but your whether or not your users enjoy your content should take precidence over whether or not you'll be able to display another add banner (and make that whopping $0.0000002 for displaying that brilliant flash ad).
+\* You may be thinking "BUT WHAT ABOUT ADVERTISING REVENUE". Don't be that dude. Call me crazy but your whether or not your users enjoy your content should take precedence over whether or not you'll be able to display another add banner (and make that whopping $0.0000002 for displaying that brilliant flash ad).

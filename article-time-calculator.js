@@ -43,7 +43,7 @@
    * @proprety {number} [configObj.wordsPerMinute]  - configure the reading speed for calculations. defaults to 200.
    * @proprety {string} [configObj.nameForMinute]   - the word used to represent minutes. defaults to 'minute'.
    * @proprety {string} [configObj.nameForSecond]   - the word used to represent seconds. defaults to 'second'.
-   * @proprety {function} [configObj.pluralizeInterceptor]   - a function that returns words implementing the rules to use to pluralize the "nameForMinute" and "nameForSecond" parameters. Must accept parameters in the form of (singularVersionOfWord, totalNumberOfWords) and MUST return a string.
+   * @proprety {function} [configObj.pluralizationInterceptor]   - a function that returns words implementing the rules to use to pluralize the "nameForMinute" and "nameForSecond" parameters. Must accept parameters in the form of (singularVersionOfWord, totalNumberOfWords) and MUST return a string.
    * @proprety {function} [configObj.formatResultInterceptor]- a function that returns the way you want the results formatted. Must accept parameters in the form of (numberOfMinutes, nameRepresentingMinutes, numberOfSeconds, nameRepresentingSeconds) and should return a string (or else whats the point)
    *
    * @constructor
@@ -54,16 +54,17 @@
       this.wordsPerMinute = _configObj.wordsPerMinute || 200;
       this.nameForMinute = _configObj.nameForMinute || 'minute';
       this.nameForSecond = _configObj.nameForSecond || 'second';
-      this.pluralizeInterceptor = _configObj.pluralizeInterceptor || pluralizeFn;
+      this.pluralizationInterceptor = _configObj.pluralizationInterceptor || pluralizeFn;
       this.formatResultInterceptor = _configObj.formatResultInterceptor || formatResult;
+      this._debug = (typeof _configObj.debug === 'boolean') ? true : false;
     }
 
     formatTimeFn(timeInMinutes){
       let minutes = Math.floor(timeInMinutes)
       , secondsAsPercentOfMinute = Math.round((timeInMinutes % minutes) * 100) / 100
       , seconds = (isNaN(secondsAsPercentOfMinute)) ? 0 : Math.round(secondsAsPercentOfMinute * 60)
-      , minuteWord = this.pluralizeInterceptor(this.nameForMinute, minutes)
-      , secondWord = this.pluralizeInterceptor(this.nameForSecond, seconds);
+      , minuteWord = this.pluralizationInterceptor(this.nameForMinute, minutes)
+      , secondWord = this.pluralizationInterceptor(this.nameForSecond, seconds);
 
       if(timeInMinutes < 1){
         minutes = 0;
@@ -80,6 +81,16 @@
 
   }
 
+  function handleErrors(elem, selector){
+    if(!elem){
+      if(this._debug === true){
+        console.warn('there was no element with the selector: ' + selector);
+        console.trace();
+      }
+      return null;
+    }
+  }
+
   /**
    * @desc a class with methods that calculates the amount of time it will take to read a given element in a DOM. Will not be accessible if the context is not a Window.
    * @extends WordReader
@@ -91,15 +102,17 @@
     }
     guessTimeToReadSelector(selector){
       let elem = document.querySelector(selector);
-      if(!elem){
-        throw new Error('there was no element with the selector: ' + selector);
-      }
-      let text = elem.textContent.split(' ');
+      let text;
+      if( handleErrors.call(this, elem, selector) === null ){ return; }
+      text = elem.textContent.split(' ');
       return this.guessBasedOnWordCount(text.length);
     }
 
     guessTimeToReadElement(elem){
-      let text = elem.textContent.split(' ');
+      let text;
+      handleErrors.call(this, elem);
+      if( handleErrors.call(this, elem, selector) === null ){ return; }
+      text = elem.textContent.split(' ');
       return this.guessBasedOnWordCount(text.length);
     }
   }
@@ -161,7 +174,7 @@
       freeModule.exports = WordReader;
     }
     // Export for CommonJS support.
-    freeExports.ArticleReader = WordReader;
+    freeExports.ReadingGuesstimator = WordReader;
   }
   else {
     // Export to the global object.
